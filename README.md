@@ -2,7 +2,7 @@
  
 Batch script to easily build OpenImageIO on Windows.
 
-The projct path is hardcoded to c:\source\oiio for now. It's easy enough to change it via find and replace if you want. (Note that if you do change the paths it will mess up the libpng step since that has a reference to C:\Source\oiio\zlib in the source.)
+The project path is hardcoded to c:\source\oiio for now. It's easy enough to change it via find and replace if you want. (Note that if you do change the paths it will mess up the libpng step since that has a reference to C:\Source\oiio\zlib in the source.)
 
 # Build Guide
 
