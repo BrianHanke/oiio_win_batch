@@ -1,9 +1,11 @@
-set BOOST_ROOT=c:\source\oiio\boost
-set ZLIB_ROOT=c:\source\oiio\zlib
-set TIFF_ROOT=c:\source\oiio\libtiff
-set EXR_ROOT=c:\source\oiio\openexr
-set JPEG_ROOT=c:\source\oiio\libjpeg-turbo
-set PNG_ROOT=c:\source\oiio\libpng\projects\vstudio\Release
+@set BOOST_ROOT=c:\source\oiio\boost
+@set ZLIB_ROOT=c:\source\oiio\zlib
+@set TIFF_ROOT=c:\source\oiio\libtiff
+@set EXR_ROOT=c:\source\oiio\openexr
+@set JPEG_ROOT=c:\source\oiio\libjpeg-turbo
+@set PNG_ROOT=c:\source\oiio\libpng\projects\vstudio\Release
+
+@set start_time=%date% %time%
 
 mkdir c:\source\oiio
 cd c:\source\oiio
@@ -67,5 +69,9 @@ call cmake -DVERBOSE=ON -DCMAKE_BUILD_TYPE=Release -DBoost_USE_STATIC_LIBS=ON -D
 mkdir c:\source\oiio\oiio\build\bin\Release
 copy c:\source\oiio\libpng\projects\vstudio\Release\bin\libpng16.dll c:\source\oiio\oiio\build\bin\Release\
 copy c:\source\oiio\zlib\build\Release\zlib.dll c:\source\oiio\oiio\build\bin\Release\
+
+@set end_time=%date% %time%
+
+@powershell -command "&{$elapsed = ([datetime]::parse('%end_time%') - [datetime]::parse('%start_time%')); $minutes_raw = $elapsed.TotalSeconds / 60; $minutes = [Math]::Truncate($minutes_raw); $seconds = [Math]::Round($elapsed.TotalSeconds - ([Math]::Round($minutes_raw, 0) * 60)); echo (-join('Total build time: ', $minutes, 'm ', $seconds, 's')); }"
 
 call devenv OpenImageIO.sln
