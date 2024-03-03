@@ -72,6 +72,6 @@ copy c:\source\oiio\zlib\build\Release\zlib.dll c:\source\oiio\oiio\build\bin\Re
 
 @set end_time=%date% %time%
 
-@powershell -command "&{$elapsed = ([datetime]::parse('%end_time%') - [datetime]::parse('%start_time%')); $minutes_raw = $elapsed.TotalSeconds / 60; $minutes = [Math]::Truncate($minutes_raw); $seconds = [Math]::Round($elapsed.TotalSeconds - ([Math]::Round($minutes_raw, 0) * 60)); echo (-join('Total build time: ', $minutes, 'm ', $seconds, 's')); }"
+@powershell -command "&{$elapsed = ([datetime]::parse('%end_time%') - [datetime]::parse('%start_time%')); $minutes_raw = $elapsed.TotalSeconds / 60; $minutes = [Math]::Truncate($minutes_raw); $seconds = [Math]::Round($elapsed.TotalSeconds - ([Math]::Truncate($minutes_raw) * 60)); echo (-join('Total build time: ', $minutes, 'm ', $seconds, 's')); }"
 
 call devenv OpenImageIO.sln
