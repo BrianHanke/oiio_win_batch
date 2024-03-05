@@ -14,5 +14,5 @@ The project path is hardcoded to `C:\Source\oiio` for now. It's easy enough to c
    
    ![oiio](https://github.com/BrianHanke/oiio_win_batch/assets/59420805/8840f297-a327-4835-bc2f-b7848278d63c)
    
-7. Final binaries will be in `C:\Source\oiio\oiio\build\bin\Release`.
+7. Final binaries and required DLLs will be in `C:\Source\oiio\oiio\build\bin\Release`.
 8. Enjoy!
