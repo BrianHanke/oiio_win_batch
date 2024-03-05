@@ -1,9 +1,15 @@
+@rem Custom Path - delete or replace
+
+@set PATH=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\bin\HostX86\x86;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\VC\VCPackages;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer;C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\bin\Roslyn;C:\Program Files\Microsoft Visual Studio\2022\Community\Team Tools\Performance Tools;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Common\VSPerfCollectionTools\vs2019\;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\FSharp\Tools;C:\Program Files\Microsoft Visual Studio\2022\Community\Team Tools\DiagnosticsHub\Collector;C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\\x86;C:\Program Files (x86)\Windows Kits\10\bin\\x86;C:\Program Files\Microsoft Visual Studio\2022\Community\\MSBuild\Current\Bin\amd64;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\;C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64_win\compiler;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Windows\system32;C:\Windows;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\languages\rust\.cargo\bin;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\bin\HostX86\x86;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\VC\VCPackages;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer;C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\bin\Roslyn;C:\Program Files\Microsoft Visual Studio\2022\Community\Team Tools\Performance Tools;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Common\VSPerfCollectionTools\vs2019\;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\FSharp\Tools;C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\\x86;C:\Program Files (x86)\Windows Kits\10\bin\\x86;C:\Users\Brian\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\VC\Linux\bin\ConnectionManagerExe;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\vcpkg
+
+@rem End custom Path
+
 @set BOOST_ROOT=c:\source\oiio\boost
 @set ZLIB_ROOT=c:\source\oiio\zlib
 @set TIFF_ROOT=c:\source\oiio\libtiff
 @set EXR_ROOT=c:\source\oiio\openexr
 @set JPEG_ROOT=c:\source\oiio\libjpeg-turbo
-@set PNG_ROOT=c:\source\oiio\libpng\projects\vstudio\Release
+@set PNG_ROOT=c:\source\oiio\libpng\dist
 @set OCIO_ROOT=c:\source\oiio\OpenColorIO\release
 
 @set start_time=%date% %time%
@@ -57,17 +63,17 @@ call git clone https://github.com/BrianHanke/libpng.git
 cd c:\source\oiio\libpng\projects\vstudio
 call devenv vstudio.sln /Build "Release|x64"
 
-mkdir c:\source\oiio\libpng\projects\vstudio\Release
-mkdir c:\source\oiio\libpng\projects\vstudio\Release\bin
-mkdir c:\source\oiio\libpng\projects\vstudio\Release\lib
-mkdir c:\source\oiio\libpng\projects\vstudio\Release\include
+mkdir %PNG_ROOT%
+mkdir %PNG_ROOT%\bin
+mkdir %PNG_ROOT%\lib
+mkdir %PNG_ROOT%\include
 
-copy c:\source\oiio\libpng\projects\vstudio\x64\Release\*.exe c:\source\oiio\libpng\projects\vstudio\Release\bin\
-copy c:\source\oiio\libpng\projects\vstudio\x64\Release\libpng16.dll c:\source\oiio\libpng\projects\vstudio\Release\bin\
-copy c:\source\oiio\libpng\projects\vstudio\x64\Release\libpng16.lib c:\source\oiio\libpng\projects\vstudio\Release\lib\
-copy c:\source\oiio\libpng\png.h c:\source\oiio\libpng\projects\vstudio\Release\include\
-copy c:\source\oiio\libpng\pngconf.h c:\source\oiio\libpng\projects\vstudio\Release\include\
-copy c:\source\oiio\libpng\pnglibconf.h c:\source\oiio\libpng\projects\vstudio\Release\include\
+copy c:\source\oiio\libpng\projects\vstudio\x64\Release\*.exe %PNG_ROOT%\bin\
+copy c:\source\oiio\libpng\projects\vstudio\x64\Release\libpng16.dll %PNG_ROOT%\bin\
+copy c:\source\oiio\libpng\projects\vstudio\x64\Release\libpng16.lib %PNG_ROOT%\lib\
+copy c:\source\oiio\libpng\png.h %PNG_ROOT%\include\
+copy c:\source\oiio\libpng\pngconf.h %PNG_ROOT%\include\
+copy c:\source\oiio\libpng\pnglibconf.h %PNG_ROOT%\include\
 
 cd c:\source\oiio
 
@@ -78,7 +84,7 @@ cd build
 call cmake -DVERBOSE=ON -DCMAKE_BUILD_TYPE=Release -DBoost_USE_STATIC_LIBS=ON -DBoost_NO_WARN_NEW_VERSIONS=ON -DBoost_ROOT=%BOOST_ROOT% -DZLIB_ROOT=%ZLIB_ROOT% -DTIFF_ROOT=%TIFF_ROOT%\dist -DOpenEXR_ROOT=%EXR_ROOT%\dist -DImath_DIR=%EXR_ROOT%\dist\lib\cmake\Imath -DJPEG_ROOT=%JPEG_ROOT% -DPNG_ROOT=%PNG_ROOT% -DOpenColorIO_ROOT=%OCIO_ROOT% -DUSE_PYTHON=0 -DUSE_QT=0 -DOIIO_BUILD_TESTS=0 ..
 
 mkdir c:\source\oiio\oiio\build\bin\Release
-copy c:\source\oiio\libpng\projects\vstudio\Release\bin\libpng16.dll c:\source\oiio\oiio\build\bin\Release\
+copy %PNG_ROOT%\bin\libpng16.dll c:\source\oiio\oiio\build\bin\Release\
 copy c:\source\oiio\zlib\build\Release\zlib.dll c:\source\oiio\oiio\build\bin\Release\
 copy C:\Source\oiio\OpenColorIO\release\bin\*.dll c:\source\oiio\oiio\build\bin\Release\
 copy C:\Source\oiio\openexr\dist\bin\*.dll c:\source\oiio\oiio\build\bin\Release\
