@@ -4,18 +4,20 @@
 
 @rem End custom Path
 
-@set BOOST_ROOT=c:\source\oiio\boost
-@set ZLIB_ROOT=c:\source\oiio\zlib
-@set TIFF_ROOT=c:\source\oiio\libtiff
-@set EXR_ROOT=c:\source\oiio\openexr
-@set JPEG_ROOT=c:\source\oiio\libjpeg-turbo
-@set PNG_ROOT=c:\source\oiio\libpng\dist
-@set OCIO_ROOT=c:\source\oiio\OpenColorIO\release
+@set PROJ_ROOT=c:\source\oiio
+
+@set BOOST_ROOT=%PROJ_ROOT%\boost
+@set ZLIB_ROOT=%PROJ_ROOT%\zlib
+@set TIFF_ROOT=%PROJ_ROOT%\libtiff
+@set EXR_ROOT=%PROJ_ROOT%\openexr
+@set JPEG_ROOT=%PROJ_ROOT%\libjpeg-turbo
+@set PNG_ROOT=%PROJ_ROOT%\libpng
+@set OCIO_ROOT=%PROJ_ROOT%\OpenColorIO\release
 
 @set start_time=%date% %time%
 
-mkdir c:\source\oiio
-cd c:\source\oiio
+mkdir %PROJ_ROOT%
+cd %PROJ_ROOT%
 
 call git clone --recursive https://github.com/boostorg/boost.git
 cd boost
@@ -28,7 +30,7 @@ cd zlib
 call cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=.
 call cmake --build build --config Release --target install
 del build\Release\zlib.lib
-copy c:\source\oiio\zlib\include\zconf.h c:\source\oiio\zlib\
+copy %ZLIB_ROOT%\include\zconf.h %ZLIB_ROOT%
 cd ..
 
 call git clone https://github.com/AcademySoftwareFoundation/openexr
@@ -60,35 +62,35 @@ call cmake --build build --config Release --target install
 cd ..
 
 call git clone https://github.com/BrianHanke/libpng.git
-cd c:\source\oiio\libpng\projects\vstudio
+cd %PNG_ROOT%\projects\vstudio
 call devenv vstudio.sln /Build "Release|x64"
 
-mkdir %PNG_ROOT%
-mkdir %PNG_ROOT%\bin
-mkdir %PNG_ROOT%\lib
-mkdir %PNG_ROOT%\include
+mkdir %PNG_ROOT%\dist
+mkdir %PNG_ROOT%\dist\bin
+mkdir %PNG_ROOT%\dist\lib
+mkdir %PNG_ROOT%\dist\include
 
-copy c:\source\oiio\libpng\projects\vstudio\x64\Release\*.exe %PNG_ROOT%\bin\
-copy c:\source\oiio\libpng\projects\vstudio\x64\Release\libpng16.dll %PNG_ROOT%\bin\
-copy c:\source\oiio\libpng\projects\vstudio\x64\Release\libpng16.lib %PNG_ROOT%\lib\
-copy c:\source\oiio\libpng\png.h %PNG_ROOT%\include\
-copy c:\source\oiio\libpng\pngconf.h %PNG_ROOT%\include\
-copy c:\source\oiio\libpng\pnglibconf.h %PNG_ROOT%\include\
+copy %PNG_ROOT%\projects\vstudio\x64\Release\*.exe %PNG_ROOT%\dist\bin\
+copy %PNG_ROOT%\projects\vstudio\x64\Release\libpng16.dll %PNG_ROOT%\dist\bin\
+copy %PNG_ROOT%\projects\vstudio\x64\Release\libpng16.lib %PNG_ROOT%\dist\lib\
+copy %PNG_ROOT%\png.h %PNG_ROOT%\dist\include\
+copy %PNG_ROOT%\pngconf.h %PNG_ROOT%\dist\include\
+copy %PNG_ROOT%\pnglibconf.h %PNG_ROOT%\dist\include\
 
-cd c:\source\oiio
+cd %PROJ_ROOT%
 
 call git clone https://github.com/OpenImageIO/oiio.git
 cd oiio
 mkdir build
 cd build
-call cmake -DVERBOSE=ON -DCMAKE_BUILD_TYPE=Release -DBoost_USE_STATIC_LIBS=ON -DBoost_NO_WARN_NEW_VERSIONS=ON -DBoost_ROOT=%BOOST_ROOT% -DZLIB_ROOT=%ZLIB_ROOT% -DTIFF_ROOT=%TIFF_ROOT%\dist -DOpenEXR_ROOT=%EXR_ROOT%\dist -DImath_DIR=%EXR_ROOT%\dist\lib\cmake\Imath -DJPEG_ROOT=%JPEG_ROOT% -DPNG_ROOT=%PNG_ROOT% -DOpenColorIO_ROOT=%OCIO_ROOT% -DUSE_PYTHON=0 -DUSE_QT=0 -DOIIO_BUILD_TESTS=0 ..
+call cmake -DVERBOSE=ON -DCMAKE_BUILD_TYPE=Release -DBoost_USE_STATIC_LIBS=ON -DBoost_NO_WARN_NEW_VERSIONS=ON -DBoost_ROOT=%BOOST_ROOT% -DZLIB_ROOT=%ZLIB_ROOT% -DTIFF_ROOT=%TIFF_ROOT%\dist -DOpenEXR_ROOT=%EXR_ROOT%\dist -DImath_DIR=%EXR_ROOT%\dist\lib\cmake\Imath -DJPEG_ROOT=%JPEG_ROOT% -DPNG_ROOT=%PNG_ROOT%\dist -DOpenColorIO_ROOT=%OCIO_ROOT% -DUSE_PYTHON=0 -DUSE_QT=0 -DOIIO_BUILD_TESTS=0 ..
 
-mkdir c:\source\oiio\oiio\build\bin\Release
-copy %PNG_ROOT%\bin\libpng16.dll c:\source\oiio\oiio\build\bin\Release\
-copy c:\source\oiio\zlib\build\Release\zlib.dll c:\source\oiio\oiio\build\bin\Release\
-copy C:\Source\oiio\OpenColorIO\release\bin\*.dll c:\source\oiio\oiio\build\bin\Release\
-copy C:\Source\oiio\openexr\dist\bin\*.dll c:\source\oiio\oiio\build\bin\Release\
-copy C:\Source\oiio\libtiff\dist\bin\*.dll c:\source\oiio\oiio\build\bin\Release\
+mkdir %PROJ_ROOT%\oiio\build\bin\Release
+copy %PNG_ROOT%\dist\bin\libpng16.dll %PROJ_ROOT%\oiio\build\bin\Release\
+copy %PROJ_ROOT%\zlib\build\Release\zlib.dll %PROJ_ROOT%\oiio\build\bin\Release\
+copy %PROJ_ROOT%\OpenColorIO\release\bin\*.dll %PROJ_ROOT%\oiio\build\bin\Release\
+copy %PROJ_ROOT%\openexr\dist\bin\*.dll %PROJ_ROOT%\oiio\build\bin\Release\
+copy %PROJ_ROOT%\libtiff\dist\bin\*.dll %PROJ_ROOT%\oiio\build\bin\Release\
 
 @set end_time=%date% %time%
 
