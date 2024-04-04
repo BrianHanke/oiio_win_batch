@@ -79,8 +79,10 @@ copy %PNG_ROOT%\pnglibconf.h %PNG_ROOT%\dist\include\
 
 cd %PROJ_ROOT%
 
-call git clone https://github.com/OpenImageIO/oiio.git
+mkdir oiio
 cd oiio
+call git clone https://github.com/AcademySoftwareFoundation/OpenImageIO.git .
+call git checkout origin/release
 mkdir build
 cd build
 call cmake -DVERBOSE=ON -DCMAKE_BUILD_TYPE=Release -DBoost_USE_STATIC_LIBS=ON -DBoost_NO_WARN_NEW_VERSIONS=ON -DBoost_ROOT=%BOOST_ROOT% -DZLIB_ROOT=%ZLIB_ROOT% -DTIFF_ROOT=%TIFF_ROOT%\dist -DOpenEXR_ROOT=%EXR_ROOT%\dist -DImath_DIR=%EXR_ROOT%\dist\lib\cmake\Imath -DJPEG_ROOT=%JPEG_ROOT% -DPNG_ROOT=%PNG_ROOT%\dist -DOpenColorIO_ROOT=%OCIO_ROOT% -DUSE_PYTHON=0 -DUSE_QT=0 -DOIIO_BUILD_TESTS=0 ..
