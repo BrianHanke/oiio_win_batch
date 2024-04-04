@@ -4,6 +4,16 @@ Batch script to easily build OpenImageIO on Windows, including OpenColorIO suppo
 
 The project path is set to `C:\Source\oiio`, but that can be easily changed by updating the variable in line 7.
 
+I chose to include only the modules that I use on a regular basis:
+
+- OpenEXR
+- OpenColorIO
+- TIFF
+- JPEG
+- PNG
+
+Modules such as FFmpeg, GIF, JPEG 2000, Ptex, and others are not included.
+
 # Build Guide
 
 1. Make sure you have Visual Studio and CMake installed. I use VS Community 2022 and CMake 3.27.1.
