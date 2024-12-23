@@ -94,6 +94,8 @@ copy %PROJ_ROOT%\OpenColorIO\release\bin\*.dll %PROJ_ROOT%\oiio\build\bin\Releas
 copy %PROJ_ROOT%\openexr\dist\bin\*.dll %PROJ_ROOT%\oiio\build\bin\Release\
 copy %PROJ_ROOT%\libtiff\dist\bin\*.dll %PROJ_ROOT%\oiio\build\bin\Release\
 
+@powershell -command "(Get-Content %PROJ_ROOT%\oiio\src\png.imageio\png_pvt.h).Replace('libpng16/png.h', 'png.h') | Set-Content %PROJ_ROOT%\oiio\src\png.imageio\png_pvt.h"
+
 @set end_time=%date% %time%
 
 @powershell -command "&{$elapsed = ([datetime]::parse('%end_time%') - [datetime]::parse('%start_time%')); $minutes_raw = $elapsed.TotalSeconds / 60; $minutes = [Math]::Truncate($minutes_raw); $seconds = [Math]::Round($elapsed.TotalSeconds - ([Math]::Truncate($minutes_raw) * 60)); echo (-join('Total build time: ', $minutes, 'm ', $seconds, 's')); }"
