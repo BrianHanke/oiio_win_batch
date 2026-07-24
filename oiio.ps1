@@ -3,9 +3,14 @@
 
 $projRoot = "C:/Source/oiio"
 
+$visualStudioVersion = "2022" # The year or verson number found in C:\Program Files\Microsoft Visual Studio
+$visualStudioEdition = "Community" # Found in C:\Program Files\Microsoft Visual Studio\$visualStudioVersion
+
+$pauseAfterStep = $false # Wait for key press after each build step
+
+# Post-dependency setup tasks
 $loadSolution = $false # Load OpenImageIO.sln in Visual Studio
 $buildOiiotool = $true # Build and test oiiotool
-$pauseAfterStep = $true # Wait for key press after each build step
 
 ##################################################################################################
 
@@ -42,20 +47,20 @@ $env:PATH = $Path -join ';'
 
 function Import-VsEnvironment {
 	param(
-		[string]$Arch = "x64",
-		[string]$VsVersion = "2022",
-		[string]$Edition = "Community"
+		[string]$arch = "x64", # Most of the time this is x64
+		[string]$version = $visualStudioVersion,
+		[string]$edition = $visualStudioEdition
 	)
 
 	Write-Host "Setting up Visual Studio environment..." -ForegroundColor Cyan
 
-	$vcvars = "C:\Program Files\Microsoft Visual Studio\$VsVersion\$Edition\VC\Auxiliary\Build\vcvarsall.bat"
+	$vcvars = "C:\Program Files\Microsoft Visual Studio\$version\$edition\VC\Auxiliary\Build\vcvarsall.bat"
 
 	if (-not (Test-Path $vcvars)) {
 		throw "Could not find vcvarsall.bat at $vcvars"
 	}
 
-	$cmd = "`"$vcvars`" $Arch && set"
+	$cmd = "`"$vcvars`" $arch && set"
 	$envVars = cmd.exe /c $cmd
 
 	foreach ($var in $envVars) {
