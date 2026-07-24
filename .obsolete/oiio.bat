@@ -30,7 +30,7 @@ cd zlib
 call cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=.
 call cmake --build build --config Release --target install
 del build\Release\zlib.lib
-copy %ZLIB_ROOT%\include\zconf.h %ZLIB_ROOT%
+copy %ZLIB_ROOT%\build\zconf.h %ZLIB_ROOT%
 cd ..
 
 call git clone --branch v3.3.2 https://github.com/AcademySoftwareFoundation/openexr
