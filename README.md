@@ -10,7 +10,7 @@ There are still a few optional features missing:
 
 # Build Guide
 
-1. Make sure you have Visual Studio (any edition, Desktop C++ Workload) and CMake installed. That's all you need!
+1. Make sure you have Visual Studio (any edition, Desktop C++ Workload), Git and CMake installed. That's all you need!
 2. Open _oiio.ps1_ in a text editor and modify the first set of variables to suit your needs. Descriptions of what everything does are included in the code comments.
 3. Launch PowerShell, navigate to where you downloaded this repo, and type `./oiio.ps1`.
 4. The build takes 10 minutes or less. Depending on which options you chose in the script the OpenImageIO Visual Studio solution might launch for you to work on, or _oiiotool_ will be built and given a test run.
