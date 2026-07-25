@@ -1,30 +1,17 @@
 # oiio_win_batch
 
-Batch script to easily build OpenImageIO on Windows, including OpenColorIO support.
+Batch PowerShell script to easily build OpenImageIO on Windows. Includes automatic setup of all major dependencies, including OpenEXR, OpenColorIO, libpng, libjpeg-turbo, LibRaw, FFmpeg, and more.
 
-Note that some dependency updates over the last two years broke the script. I updated it to use only versions available in December 2024. Working well with the latest OIIO as of July 2026.
+There are still a few optional features missing:
 
-The project path is set to `C:\Source\oiio`, but that can be changed by updating the variable in line 7.
-
-I chose to include only the modules that I use on a regular basis:
-
-- OpenEXR
-- OpenColorIO
-- TIFF
-- JPEG
-- PNG
-
-Modules such as FFmpeg, GIF, JPEG 2000, Ptex, and others are not included.
+- GIF: hard to build on Windows and a very outdated image format anyway.
+- Ptex, libuhdr, openjph, libheif and JXL: infrequently used.
+- DCMTK: a niche library for medical imaging.
 
 # Build Guide
 
-1. Make sure you have Visual Studio and CMake installed. I use VS Community 2022 and CMake 3.27.1.
-2. Clean up your Windows Path to remove any potential conflicts such as existing OpenImageIO installs, OpenRV, Strawberry Perl, etc. You basically just want Visual Studio and CMake and that's it. Line 3 of the script sets a minimal Path for my system. You'll have to update it to match your setup.
-3. Launch an Administrator Developer Command Prompt for VS 2022.
-4. Navigate to where you downloaded `oiio.bat` and run it.
-5. After everything is built, VS will launch `OpenImageIO.sln`. You can build whatever part of the project you want. Make sure to set the configuration to `Release`.
-
-   ![oiio](https://github.com/BrianHanke/oiio_win_batch/assets/59420805/8840f297-a327-4835-bc2f-b7848278d63c)
-
-7. Final binaries and required DLLs will be in `C:\Source\oiio\oiio\build\bin\Release`.
-8. Enjoy!
+1. Make sure you have Visual Studio (any edition, Desktop C++ Workload) and CMake installed. That's all you need!
+2. Open _oiio.ps1_ in a text editor and modify the first set of variables to suit your needs. Descriptions of what everything does are included in the code comments.
+3. Launch PowerShell, navigate to where you downloaded this repo, and type `./oiio.ps1`.
+4. The build takes 10 minutes or less. Depending on which options you chose in the script the OpenImageIO Visual Studio solution might launch for you to work on, or _oiiotool_ will be built and given a test run.
+5. Any final binaries you build, plus all required DLLs, can be found in _$projRoot\oiio\build\bin\Release_.
