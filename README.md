@@ -1,6 +1,6 @@
 # oiio_win_batch
 
-Batch PowerShell script to easily build OpenImageIO on Windows. Automatically sets up all major dependencies, including OpenEXR, OpenColorIO, libpng, libjpeg-turbo, LibRaw, FFmpeg, and more.
+PowerShell script to easily build OpenImageIO on Windows. Automatically sets up all major dependencies, including OpenEXR, OpenColorIO, libpng, libjpeg-turbo, LibRaw, FFmpeg, and more.
 
 There are still a few optional features missing:
 
