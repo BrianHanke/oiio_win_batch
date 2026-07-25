@@ -1,6 +1,6 @@
 ## July 24, 2026
 
-- Released a much-improved script, now for PowerShell and including most OpenImageIO depedencies. Set some variables and OIIO will be ready in a few minutes!
+- Released a much-improved script, now for PowerShell and including most OpenImageIO dependencies. Set some variables and OIIO will be ready in a few minutes!
 
 ## December 22, 2024
 
